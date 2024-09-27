@@ -6,7 +6,7 @@
         public int CodVenda { get; set; }
         public DateTime DataVenda { get; set; }
         public Cliente Cliente { get; set; }
-        public DateTime Valor { get; set; }
+        public decimal Valor { get; set; }
         public Filial Filial { get; set; }
     }
 }

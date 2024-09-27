@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Vendas123.Infrastructure.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 //configure Fake context 
 builder.Services.AddSingleton<FakeContext>();
+//configure InMemory context 
+builder.Services.AddDbContext<VendasDbContext>(db => db.UseInMemoryDatabase("VendasDb"));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

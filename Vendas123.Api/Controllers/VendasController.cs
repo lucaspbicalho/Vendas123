@@ -10,23 +10,23 @@ namespace Vendas123.Api.Controllers
     [ApiController]
     public class VendasController : ControllerBase
     {
-        private readonly FakeContext _fakeContext;
-        public VendasController(FakeContext fakeContext)
+        private readonly VendasDbContext _context;
+        public VendasController(VendasDbContext context)
         {
-            this._fakeContext = fakeContext;
+            this._context = context;
         }
         // GET: api/vendas
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_fakeContext.Vendas.ToList());
+            return Ok(_context.Vendas.ToList());
         }
 
         // GET api/vendas/5
         [HttpGet("{codVenda}")]
         public IActionResult Get(int codVenda)
         {
-            var vendas = _fakeContext.Vendas.FirstOrDefault(p => p.CodVenda == codVenda);
+            var vendas = _context.Vendas.FirstOrDefault(p => p.CodVenda == codVenda);
             if (vendas == null)
             {
                 return NotFound();
@@ -38,8 +38,8 @@ namespace Vendas123.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Venda venda)
         {
-            _fakeContext.Vendas.Add(venda);
-
+            _context.Vendas.Add(venda);
+            _context.SaveChanges();
             return CreatedAtAction(nameof(Get), new { codVenda = venda.CodVenda }, venda.CodVenda);
         }
 
@@ -47,14 +47,15 @@ namespace Vendas123.Api.Controllers
         [HttpPut("{codVenda}")]
         public IActionResult Put(int codVenda, [FromBody] Venda novaVenda)
         {
-            var venda = _fakeContext.Vendas.FirstOrDefault(p => p.CodVenda == codVenda);
+            var venda = _context.Vendas.FirstOrDefault(p => p.CodVenda == codVenda);
             if (venda == null)
             {
                 return NotFound();
             }
 
-            _fakeContext.Vendas.Remove(venda);
-            _fakeContext.Vendas.Add(novaVenda);
+            _context.Vendas.Remove(venda);
+            _context.Vendas.Add(novaVenda);
+            _context.SaveChanges();
             return NoContent();
         }
 
@@ -62,13 +63,14 @@ namespace Vendas123.Api.Controllers
         [HttpDelete("{codVenda}")]
         public IActionResult Delete(int codVenda)
         {
-            var venda = _fakeContext.Vendas.FirstOrDefault(p => p.CodVenda == codVenda);
+            var venda = _context.Vendas.FirstOrDefault(p => p.CodVenda == codVenda);
             if (venda == null)
             {
                 return NotFound();
             }
 
-            _fakeContext.Vendas.Remove(venda);
+            _context.Vendas.Remove(venda);
+            _context.SaveChanges();
             return NoContent();
         }
     }

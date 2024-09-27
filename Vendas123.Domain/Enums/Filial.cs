@@ -1,6 +1,6 @@
 ﻿public enum Filial
 {
-    Aberto = 0,
-    EmProgresso = 1,
-    Fechada = 2,
+    Filial_SP = 0,
+    Filial_MG = 1,
+    Filial_RJ = 2,
 }
