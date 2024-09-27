@@ -1,7 +1,10 @@
-var builder = WebApplication.CreateBuilder(args);
+using Vendas123.Infrastructure.Contexts;
 
+var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
+//configure Fake context 
+builder.Services.AddSingleton<FakeContext>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

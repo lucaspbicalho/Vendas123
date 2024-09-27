@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vendas123.Domain.Enums
+namespace Vendas123.Domain.Entites
 {
     public class Cliente
     {

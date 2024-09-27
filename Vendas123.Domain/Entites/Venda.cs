@@ -1,6 +1,6 @@
-﻿namespace Vendas123.Domain.Enums
+﻿namespace Vendas123.Domain.Entites
 {
-    public class Vendas
+    public class Venda
     {
         public Guid Id { get; set; }
         public string CodVenda { get; set; }
