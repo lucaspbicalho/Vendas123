@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Vendas123.Infrastructure.Contexts;
+using Vendas123.Infrastructure.Repositories;
+using Vendas123.Services.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -8,6 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<FakeContext>();
 //configure InMemory context 
 builder.Services.AddDbContext<VendasDbContext>(db => db.UseInMemoryDatabase("VendasDb"));
+// Repository
+builder.Services.AddScoped<IVendaRepository, VendaRepository>();
+// Services
+builder.Services.AddScoped<VendaService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

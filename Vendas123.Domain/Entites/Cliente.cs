@@ -9,7 +9,7 @@ namespace Vendas123.Domain.Entites
     public class Cliente
     {
         public Guid Id { get; set; }
-        public int ClienteId { get; set; }
+        public int CodCliente { get; set; }
         public string Name { get; set; }
         public string Cpf { get; set; }
         public string Telefone { get; set; }

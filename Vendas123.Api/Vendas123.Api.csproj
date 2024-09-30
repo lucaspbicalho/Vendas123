@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Vendas123.Infrastructure\Vendas123.Infrastructure.csproj" />
+    <ProjectReference Include="..\Vendas123.Services\Vendas123.Services.csproj" />
   </ItemGroup>
 
 </Project>
