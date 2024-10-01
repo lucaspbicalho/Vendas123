@@ -6,7 +6,7 @@ namespace Vendas123.Domain.ViewModel
     public class ClienteViewModel
     {
         public int CodCliente { get; set; }
-        public string Name { get; set; }
+        public string Nome { get; set; }
         public string Cpf { get; set; }
         public string Telefone { get; set; }
         public string Email { get; set; }
@@ -16,7 +16,7 @@ namespace Vendas123.Domain.ViewModel
             {
                 Id = Guid.NewGuid(),
                 CodCliente = clienteVM.CodCliente,
-                Name = clienteVM.Name,
+                Nome = clienteVM.Nome,
                 Cpf = clienteVM.Cpf,
                 Telefone = clienteVM.Telefone,
                 Email = clienteVM.Email,
@@ -26,7 +26,9 @@ namespace Vendas123.Domain.ViewModel
         {
             return new ClienteViewModel
             {
-                Name = clienteVM.Name,
+                CodCliente = clienteVM.CodCliente,
+                Nome = clienteVM.Nome,
+                Cpf = clienteVM.Cpf,
                 Telefone = clienteVM.Telefone,
                 Email = clienteVM.Email,
             };

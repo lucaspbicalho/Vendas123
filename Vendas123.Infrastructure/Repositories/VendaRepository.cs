@@ -1,4 +1,5 @@
-﻿using Vendas123.Domain.Entites;
+﻿using Microsoft.EntityFrameworkCore;
+using Vendas123.Domain.Entites;
 using Vendas123.Domain.ViewModel;
 using Vendas123.Infrastructure.Contexts;
 
@@ -14,12 +15,10 @@ namespace Vendas123.Infrastructure.Repositories
         }
         public List<VendaViewModel> GetAll()
         {
-            DateTime dateNow = DateTime.Now;
             return _context.Vendas.Select(s => new VendaViewModel { CodVenda = s.CodVenda, DataVenda = s.DataVenda, Filial = s.Filial, Valor = s.Valor, Cliente = s.Cliente }).ToList();
         }
         public VendaViewModel GetById(Guid id)
         {
-            DateTime dateNow = DateTime.Now;
             return _context.Vendas
                 .Where(w => w.Id == id)
                 .Select(s => new VendaViewModel { CodVenda = s.CodVenda, DataVenda = s.DataVenda, Filial = s.Filial, Valor = s.Valor, Cliente = s.Cliente })
@@ -41,6 +40,7 @@ namespace Vendas123.Infrastructure.Repositories
         public bool Update(int codVenda, VendaViewModel novaVenda)
         {
             var venda = _context.Vendas
+                .Include(c => c.Cliente)
                 .FirstOrDefault(p => p.CodVenda == codVenda);
 
             if (venda == null)
@@ -49,9 +49,18 @@ namespace Vendas123.Infrastructure.Repositories
             }
             else
             {
+                //
+                venda.CodVenda = novaVenda.CodVenda;                
                 venda.DataVenda = novaVenda.DataVenda;
                 venda.Valor = novaVenda.Valor;
                 venda.Filial = novaVenda.Filial;
+                //Cliente
+                venda.Cliente.CodCliente = novaVenda.Cliente.CodCliente;
+                venda.Cliente.Nome = novaVenda.Cliente.Nome;
+                venda.Cliente.Cpf = novaVenda.Cliente.Cpf;
+                venda.Cliente.Telefone = novaVenda.Cliente.Telefone;
+                venda.Cliente.Email = novaVenda.Cliente.Email;
+
             }
 
             _context.Vendas.Update(venda);

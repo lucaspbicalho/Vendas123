@@ -9,7 +9,6 @@ namespace Vendas123.Domain.ViewModel
         public ClienteViewModel Cliente { get; set; }
         public decimal Valor { get; set; }
         public Filial Filial { get; set; }
-        public Guid Id { get; set; }
 
         public static implicit operator Venda(VendaViewModel vendaVM)
         {
