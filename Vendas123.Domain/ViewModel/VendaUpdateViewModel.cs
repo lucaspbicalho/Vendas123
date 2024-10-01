@@ -4,16 +4,15 @@ using Vendas123.Domain.Entites;
 
 namespace Vendas123.Domain.ViewModel
 {
-    public class VendaViewModel
+    public class VendaUpdateViewModel
     {
         public int CodVenda { get; set; }
         public DateTime DataVenda { get; set; }
         public decimal Valor { get; set; }
         public Filial Filial { get; set; }
         public ClienteViewModel Cliente { get; set; }
-        public List<ProdutoViewModel> Produtos { get; set; }
 
-        public static implicit operator Venda(VendaViewModel vendaVM)
+        public static implicit operator Venda(VendaUpdateViewModel vendaVM)
         {
             return new Venda
             {
@@ -23,7 +22,6 @@ namespace Vendas123.Domain.ViewModel
                 Valor = vendaVM.Valor,
                 Filial = vendaVM.Filial,
                 Cliente = vendaVM.Cliente,
-                Produtos = vendaVM.Produtos.Select(x => (Produto)x).ToList(),
             };
         }
     }

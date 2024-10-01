@@ -10,6 +10,6 @@ namespace Vendas123.Infrastructure.Repositories
         public VendaViewModel GetByCodVenda(int codVenda);
         public void Save(VendaViewModel vendaVM);
         public bool Delete(int codVenda);
-        public bool Update(int codVenda, VendaViewModel novaVenda);
+        public bool Update(int codVenda, VendaUpdateViewModel novaVenda);
     }
 }

@@ -29,7 +29,7 @@ namespace Vendas123.Services.Services
         {
             _vendaRepository.Save(vendaVM);
         }
-        public bool Update(int codVenda, VendaViewModel novaVenda)
+        public bool Update(int codVenda, VendaUpdateViewModel novaVenda)
         {
             return _vendaRepository.Update(codVenda, novaVenda);
         }

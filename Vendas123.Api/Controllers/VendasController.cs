@@ -49,7 +49,7 @@ namespace Vendas123.Api.Controllers
 
         // PUT api/vendas/5
         [HttpPut("{codVenda}")]
-        public IActionResult Put(int codVenda, [FromBody] VendaViewModel novaVenda)
+        public IActionResult Put(int codVenda, [FromBody] VendaUpdateViewModel novaVenda)
         {
 
             var venda = _vendasService.Update(codVenda, novaVenda);
