@@ -33,6 +33,8 @@ namespace Vendas123.Infrastructure.Repositories
         public VendaViewModel GetById(Guid id)
         {
             return _context.Vendas
+                .Include(c => c.Cliente)
+                .Include(p => p.Produtos)
                 .Where(w => w.Id == id)
                 .Select(s => new VendaViewModel
                 {
@@ -49,6 +51,8 @@ namespace Vendas123.Infrastructure.Repositories
         {
             DateTime dateNow = DateTime.Now;
             return _context.Vendas
+                .Include(c => c.Cliente)
+                .Include(p => p.Produtos)
                 .Where(w => w.CodVenda == codVenda)
                 .Select(s => new VendaViewModel
                 {
