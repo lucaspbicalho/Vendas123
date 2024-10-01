@@ -14,15 +14,19 @@ namespace Vendas123.Api.Controllers
     public class VendasController : ControllerBase
     {
         private readonly VendaService _vendasService;
-        public VendasController(VendaService vendasService)
+        private readonly ILogger<VendasController> _logger;
+        public VendasController(VendaService vendasService, ILogger<VendasController> logger)
         {
             this._vendasService = vendasService;
+            _logger = logger;
         }
         // GET: api/vendas
         [HttpGet]
         public IActionResult Get()
         {
+            _logger.LogInformation("{api/vendas/Get} Iniciando.");
             var vendas = _vendasService.Listar();
+            _logger.LogInformation("{api/vendas/Get} Fim.");
             return Ok(vendas);
         }
 
@@ -30,12 +34,14 @@ namespace Vendas123.Api.Controllers
         [HttpGet("{codVenda}")]
         public IActionResult Get(int codVenda)
         {
+            _logger.LogInformation("{api/vendas/Get codVenda} Iniciando.", codVenda);
             var venda = _vendasService.GetByCodVenda(codVenda);
 
             if (venda == null)
             {
                 return NotFound();
             }
+            _logger.LogInformation("{api/vendas/Get codVenda} Fim.", codVenda);
             return Ok(venda);
         }
 
@@ -43,7 +49,9 @@ namespace Vendas123.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] VendaCreateViewModel vendaVM)
         {
+            _logger.LogInformation("{api/vendas/Post} Iniciando.",vendaVM);
             _vendasService.Save(vendaVM);
+            _logger.LogInformation("{api/vendas/Post} Fim.", vendaVM);
             return Created();
         }
 
@@ -51,13 +59,14 @@ namespace Vendas123.Api.Controllers
         [HttpPut("{codVenda}")]
         public IActionResult Put(int codVenda, [FromBody] VendaUpdateViewModel novaVenda)
         {
-
+            _logger.LogInformation("{api/vendas/Put} Iniciando.", novaVenda);
             var venda = _vendasService.Update(codVenda, novaVenda);
             if (venda)
             {
                 return NoContent();
 
             }
+            _logger.LogInformation("{api/vendas/Put} Fim.", novaVenda);
             return NotFound();
         }
 
@@ -65,12 +74,14 @@ namespace Vendas123.Api.Controllers
         [HttpDelete("{codVenda}")]
         public IActionResult Delete(int codVenda)
         {
+            _logger.LogInformation("{api/vendas/Delete} Iniciando.", codVenda);
             var venda = _vendasService.Delete(codVenda);
             if (venda)
             {
                 return NoContent();
 
             }
+            _logger.LogInformation("{api/vendas/Delete codVenda} Fim.", codVenda);
             return NotFound();
         }
     }
