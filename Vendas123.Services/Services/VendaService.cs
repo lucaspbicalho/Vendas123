@@ -25,7 +25,7 @@ namespace Vendas123.Services.Services
             var venda = _vendaRepository.GetByCodVenda(codVenda);
             return venda;
         }
-        public void Save(VendaViewModel vendaVM)
+        public void Save(VendaCreateViewModel vendaVM)
         {
             _vendaRepository.Save(vendaVM);
         }

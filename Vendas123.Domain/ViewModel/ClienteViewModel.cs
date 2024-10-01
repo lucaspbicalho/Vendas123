@@ -5,17 +5,26 @@ namespace Vendas123.Domain.ViewModel
 {
     public class ClienteViewModel
     {
-        public int CodCliente { get; set; }
+        [DataType(DataType.Text)]
+        [Display(Name = "Nome Cliente")]
         public string Nome { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name = "Cpf Cliente")]
         public string Cpf { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name = "Telefone Cliente")]
         public string Telefone { get; set; }
+
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "E-mail Cliente")]
         public string Email { get; set; }
         public static implicit operator Cliente(ClienteViewModel clienteVM)
         {
             return new Cliente
             {
                 Id = Guid.NewGuid(),
-                CodCliente = clienteVM.CodCliente,
                 Nome = clienteVM.Nome,
                 Cpf = clienteVM.Cpf,
                 Telefone = clienteVM.Telefone,
@@ -26,7 +35,6 @@ namespace Vendas123.Domain.ViewModel
         {
             return new ClienteViewModel
             {
-                CodCliente = clienteVM.CodCliente,
                 Nome = clienteVM.Nome,
                 Cpf = clienteVM.Cpf,
                 Telefone = clienteVM.Telefone,

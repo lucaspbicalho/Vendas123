@@ -16,12 +16,14 @@ namespace Vendas123.Infrastructure.Repositories
         public List<VendaViewModel> GetAll()
         {
             return _context.Vendas
+                .Include(c => c.Cliente)
+                .Include(p => p.Produtos)
                 .Select(s => new VendaViewModel
                 {
                     CodVenda = s.CodVenda,
                     DataVenda = s.DataVenda,
-                    Filial = s.Filial,
-                    Valor = s.Valor,
+                    Filial = s.Filial.ToString(),
+                    ValorTotalVenda = s.Valor,
                     Cliente = s.Cliente,
                     Produtos = s.Produtos.Select(x => (ProdutoViewModel)x).ToList(),
 
@@ -36,8 +38,8 @@ namespace Vendas123.Infrastructure.Repositories
                 {
                     CodVenda = s.CodVenda,
                     DataVenda = s.DataVenda,
-                    Filial = s.Filial,
-                    Valor = s.Valor,
+                    Filial = s.Filial.ToString(),
+                    ValorTotalVenda = s.Valor,
                     Cliente = s.Cliente,
                     Produtos = s.Produtos.Select(x => (ProdutoViewModel)x).ToList(),
                 })
@@ -52,17 +54,15 @@ namespace Vendas123.Infrastructure.Repositories
                 {
                     CodVenda = s.CodVenda,
                     DataVenda = s.DataVenda,
-                    Filial = s.Filial,
-                    Valor = s.Valor,
+                    Filial = s.Filial.ToString(),
+                    ValorTotalVenda = s.Valor,
                     Cliente = s.Cliente,
                     Produtos = s.Produtos.Select(x => (ProdutoViewModel)x).ToList(),
                 })
                 .FirstOrDefault();
         }
-        public void Save(VendaViewModel vendaVM)
+        public void Save(VendaCreateViewModel vendaVM)
         {
-            DateTime dataAtual = DateTime.Now;
-            vendaVM.DataVenda = dataAtual;
             _context.Vendas.Add(vendaVM);
             _context.SaveChanges();
         }
@@ -80,18 +80,14 @@ namespace Vendas123.Infrastructure.Repositories
             else
             {
                 //
-                venda.CodVenda = novaVenda.CodVenda;
-                venda.DataVenda = novaVenda.DataVenda;
                 venda.Valor = novaVenda.Valor;
-                venda.Filial = novaVenda.Filial;
+                venda.Filial = (Filial)novaVenda.Filial;
                 //Cliente
-                venda.Cliente.CodCliente = novaVenda.Cliente.CodCliente;
                 venda.Cliente.Nome = novaVenda.Cliente.Nome;
-                venda.Cliente.Cpf = novaVenda.Cliente.Cpf;
                 venda.Cliente.Telefone = novaVenda.Cliente.Telefone;
                 venda.Cliente.Email = novaVenda.Cliente.Email;
             }
-
+            _context.Clientes.Update(venda.Cliente);
             _context.Vendas.Update(venda);
             _context.SaveChanges();
             return true;

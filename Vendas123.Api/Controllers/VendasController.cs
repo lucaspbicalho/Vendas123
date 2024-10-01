@@ -41,10 +41,10 @@ namespace Vendas123.Api.Controllers
 
         // POST api/vendas
         [HttpPost]
-        public IActionResult Post([FromBody] VendaViewModel vendaVM)
+        public IActionResult Post([FromBody] VendaCreateViewModel vendaVM)
         {
             _vendasService.Save(vendaVM);
-            return CreatedAtAction(nameof(Get), new { codVenda = vendaVM.CodVenda }, vendaVM.CodVenda);
+            return Created();
         }
 
         // PUT api/vendas/5
