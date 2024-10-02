@@ -62,28 +62,30 @@ namespace Vendas123.Tests
         [Fact]
         public void ValidVenda_Save()
         {
-            var venda = _vendaCreate.FirstOrDefault();
+            var venda = _venda.FirstOrDefault();
+            var vendaCreateViewModel = _vendaCreate.FirstOrDefault();
+            
             var vendaRepository = Substitute.For<IVendaRepository>();
             vendaRepository.Save(venda);
             var vendaService = Substitute.For<IVendaService>();
-            vendaService.Save(venda);
+            vendaService.Save(vendaCreateViewModel);
 
             _cliente.Should().NotBeNull();
             _listProdutos.Should().NotBeNull();
             _vendaCreate.Should().NotBeNull();
 
             vendaRepository.Received().Save(venda);
-            vendaService.Received().Save(venda);
+            vendaService.Received().Save(vendaCreateViewModel);
         }
         [Fact]
         public void IsInvalidVendaNull_Save()
         {
             var vendaRepository = Substitute.For<IVendaRepository>();
-            vendaRepository.Save(Arg.Any<VendaCreateViewModel>());
+            vendaRepository.Save(Arg.Any<Venda>());
             var vendaService = Substitute.For<IVendaService>();
             vendaService.Save(Arg.Any<VendaCreateViewModel>());
 
-            vendaRepository.DidNotReceive().Save(Arg.Any<VendaCreateViewModel>());
+            vendaRepository.DidNotReceive().Save(Arg.Any<Venda>());
             vendaService.DidNotReceive().Save(Arg.Any<VendaCreateViewModel>());
         }
         [Fact]
@@ -93,22 +95,22 @@ namespace Vendas123.Tests
             var vendaUpdate = _vendaUpdate.FirstOrDefault();
 
             var vendaRepository = Substitute.For<IVendaRepository>();
-            vendaRepository.Update(venda.CodVenda, vendaUpdate);
+            vendaRepository.Update(venda.CodVenda, venda);
             var vendaService = Substitute.For<IVendaService>();
             vendaService.Update(venda.CodVenda, vendaUpdate);
 
-            vendaRepository.Received().Update(venda.CodVenda, vendaUpdate);
+            vendaRepository.Received().Update(venda.CodVenda, venda);
             vendaService.Received().Update(venda.CodVenda, vendaUpdate);
         }
         [Fact]
         public void IsInvalidVenda_Update()
         {
             var vendaRepository = Substitute.For<IVendaRepository>();
-            vendaRepository.Update(0, Arg.Any<VendaUpdateViewModel>());
+            vendaRepository.Update(0, Arg.Any<Venda>());
             var vendaService = Substitute.For<IVendaService>();
             vendaService.Update(0, Arg.Any<VendaUpdateViewModel>());
 
-            vendaRepository.DidNotReceive().Update(0, Arg.Any<VendaUpdateViewModel>());
+            vendaRepository.DidNotReceive().Update(0, Arg.Any<Venda>());
             vendaService.DidNotReceive().Update(0, Arg.Any<VendaUpdateViewModel>());
         }
         [Fact]

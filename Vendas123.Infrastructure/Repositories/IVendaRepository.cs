@@ -1,15 +1,14 @@
 ﻿using Vendas123.Domain.Entites;
-using Vendas123.Domain.ViewModel;
 
 namespace Vendas123.Infrastructure.Repositories
 {
     public interface IVendaRepository
     {
-        public List<VendaViewModel> GetAll();
-        public VendaViewModel GetById(Guid codVenda);
-        public VendaViewModel GetByCodVenda(int codVenda);
-        public void Save(VendaCreateViewModel vendaVM);
+        public List<Venda> GetAll();
+        public Venda GetById(Guid codVenda);
+        public Venda GetByCodVenda(int codVenda);
+        public void Save(Venda vendaVM);
         public bool Delete(int codVenda);
-        public bool Update(int codVenda, VendaUpdateViewModel novaVenda);
+        public bool Update(int codVenda, Venda novaVenda);
     }
 }

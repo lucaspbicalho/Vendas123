@@ -13,64 +13,36 @@ namespace Vendas123.Infrastructure.Repositories
         {
             _context = context;
         }
-        public List<VendaViewModel> GetAll()
+        public List<Venda> GetAll()
         {
             return _context.Vendas
                 .Include(c => c.Cliente)
                 .Include(p => p.Produtos)
-                .Select(s => new VendaViewModel
-                {
-                    CodVenda = s.CodVenda,
-                    DataVenda = s.DataVenda,
-                    Filial = s.Filial.ToString(),
-                    ValorTotalVenda = s.Valor,
-                    Cliente = s.Cliente,
-                    Produtos = s.Produtos.Select(x => (ProdutoViewModel)x).ToList(),
-
-                })
                 .ToList();
         }
-        public VendaViewModel GetById(Guid id)
+        public Venda GetById(Guid id)
         {
             return _context.Vendas
                 .Include(c => c.Cliente)
                 .Include(p => p.Produtos)
                 .Where(w => w.Id == id)
-                .Select(s => new VendaViewModel
-                {
-                    CodVenda = s.CodVenda,
-                    DataVenda = s.DataVenda,
-                    Filial = s.Filial.ToString(),
-                    ValorTotalVenda = s.Valor,
-                    Cliente = s.Cliente,
-                    Produtos = s.Produtos.Select(x => (ProdutoViewModel)x).ToList(),
-                })
                 .FirstOrDefault();
         }
-        public VendaViewModel GetByCodVenda(int codVenda)
+        public Venda GetByCodVenda(int codVenda)
         {
             DateTime dateNow = DateTime.Now;
             return _context.Vendas
                 .Include(c => c.Cliente)
                 .Include(p => p.Produtos)
                 .Where(w => w.CodVenda == codVenda)
-                .Select(s => new VendaViewModel
-                {
-                    CodVenda = s.CodVenda,
-                    DataVenda = s.DataVenda,
-                    Filial = s.Filial.ToString(),
-                    ValorTotalVenda = s.Valor,
-                    Cliente = s.Cliente,
-                    Produtos = s.Produtos.Select(x => (ProdutoViewModel)x).ToList(),
-                })
                 .FirstOrDefault();
         }
-        public void Save(VendaCreateViewModel vendaVM)
+        public void Save(Venda venda)
         {
-            _context.Vendas.Add(vendaVM);
+            _context.Vendas.Add(venda);
             _context.SaveChanges();
         }
-        public bool Update(int codVenda, VendaUpdateViewModel novaVenda)
+        public bool Update(int codVenda, Venda novaVenda)
         {
             var venda = _context.Vendas
                 .Include(c => c.Cliente)
