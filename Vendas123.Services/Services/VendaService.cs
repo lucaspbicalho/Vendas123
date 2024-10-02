@@ -3,7 +3,7 @@ using Vendas123.Infrastructure.Repositories;
 
 namespace Vendas123.Services.Services
 {
-    public class VendaService
+    public class VendaService: IVendaService
     {
         private readonly IVendaRepository _vendaRepository;
 

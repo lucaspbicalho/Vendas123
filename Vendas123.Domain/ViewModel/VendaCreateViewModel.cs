@@ -25,5 +25,14 @@ namespace Vendas123.Domain.ViewModel
                 Produtos = vendaVM.Produtos.Select(x => (Produto)x).ToList(),
             };
         }
+        public static implicit operator VendaCreateViewModel(Venda vendaVM)
+        {
+            return new VendaCreateViewModel
+            {
+                Filial = (int)vendaVM.Filial,
+                Cliente = vendaVM.Cliente,
+                Produtos = vendaVM.Produtos.Select(x => (ProdutoViewModel)x).ToList(),
+            };
+        }
     }
 }
