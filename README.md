@@ -1,5 +1,5 @@
 Projeto em .NET 8.0
-para executar o projeto recomenda-se utilixar visual studio e definir o projeto Vendas123.Api como Inicialização.
+para executar o projeto recomenda-se utilizar visual studio e definir o projeto Vendas123.Api como Inicialização.
 ![image](https://github.com/user-attachments/assets/aff1f06f-e850-4a12-a32e-a3b1c707d2f0)
 
 Para executar o projeto de Test abra a aba de gerenciador de Testes e clique em executar todos os testes.
