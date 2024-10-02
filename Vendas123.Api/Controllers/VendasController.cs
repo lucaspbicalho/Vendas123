@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Vendas123.Domain.Entites;
 using Vendas123.Domain.ViewModel;
-using Vendas123.Infrastructure.Contexts;
 using Vendas123.Services.Services;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,10 +12,12 @@ namespace Vendas123.Api.Controllers
     {
         private readonly VendaService _vendasService;
         private readonly ILogger<VendasController> _logger;
+        private readonly MessageBrokerService _rabbitMq;
         public VendasController(VendaService vendasService, ILogger<VendasController> logger)
         {
             this._vendasService = vendasService;
             _logger = logger;
+            _rabbitMq = new MessageBrokerService() { };
         }
         // GET: api/vendas
         [HttpGet]
@@ -52,6 +51,8 @@ namespace Vendas123.Api.Controllers
             _logger.LogInformation("{api/vendas/Post} Iniciando.",vendaVM);
             _vendasService.Save(vendaVM);
             _logger.LogInformation("{api/vendas/Post} Fim.", vendaVM);
+            //send msg to rabbitMq
+            _rabbitMq.PostMsg("Compra criada com sucesso!", Eventos.CompraCriada);
             return Created();
         }
 
@@ -67,6 +68,9 @@ namespace Vendas123.Api.Controllers
 
             }
             _logger.LogInformation("{api/vendas/Put} Fim.", novaVenda);
+
+            //send msg to rabbitMq
+            _rabbitMq.PostMsg("Compra alterada com sucesso!", Eventos.CompraAlterada);
             return NotFound();
         }
 
@@ -82,7 +86,10 @@ namespace Vendas123.Api.Controllers
 
             }
             _logger.LogInformation("{api/vendas/Delete codVenda} Fim.", codVenda);
+
+            //send msg to rabbitMq
+            _rabbitMq.PostMsg("Compra cancelada com sucesso!", Eventos.CompraCancelada);
             return NotFound();
-        }
+        }        
     }
 }

@@ -18,6 +18,8 @@ builder.Services.AddDbContext<VendasDbContext>(db => db.UseInMemoryDatabase("Ven
 builder.Services.AddScoped<IVendaRepository, VendaRepository>();
 // Services
 builder.Services.AddScoped<VendaService>();
+builder.Services.AddScoped<MessageBrokerService>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
