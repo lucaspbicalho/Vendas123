@@ -99,6 +99,7 @@ namespace Vendas123.Tests
                 dbContext.Database.EnsureCreated();
                 dbContext.Vendas.Add(_venda);
                 dbContext.SaveChanges();
+                dbContext.Database.EnsureDeleted();
             }
             var client = _factory.CreateClient();
 
@@ -124,6 +125,7 @@ namespace Vendas123.Tests
                 dbContext.Database.EnsureCreated();
                 dbContext.Vendas.Add(_venda);
                 dbContext.SaveChanges();
+                dbContext.Database.EnsureDeleted();
             }
             var client = _factory.CreateClient();
 
